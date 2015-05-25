@@ -18,20 +18,16 @@ http_response_t response;
 void setup() {
     Serial.begin(9600);
     Serial1.begin(9600);
-    delay(500);
-    Serial1.write(254); // move cursor to beginning of first line
-    Serial1.write(128); // move cursor to beginning of first line
-    Serial1.write("                "); // clear display
-    Serial1.write("                ");
+    // delay(500);
+    clearDisplay();
     
     Serial1.write(254); // move cursor to beginning of first line
     Serial1.write(128); // move cursor to beginning of first line
     Serial1.write("Starting...");
+    
+    clearDisplay();
+    
     delay(2000);
-    Serial1.write(254); // move cursor to beginning of first line
-    Serial1.write(128); // move cursor to beginning of first line
-    Serial1.write("                "); // clear display
-    Serial1.write("                ");
 }
 
 void loop() {
@@ -39,10 +35,8 @@ void loop() {
     //     return;
     // }
     
-    Serial1.write(254); // move cursor to beginning of first line
-    Serial1.write(128); // move cursor to beginning of first line
-    Serial1.write("                "); // clear display
-    Serial1.write("                ");
+    clearDisplay();
+    
     Serial1.write(254); // move cursor to beginning of first line
     Serial1.write(128); // move cursor to beginning of first line
     Serial1.write("Updating...");
@@ -63,15 +57,10 @@ void loop() {
     Serial.println();
     Serial.println();
     
-    Serial1.write(254); // move cursor to beginning of first line
-    Serial1.write(128); // move cursor to beginning of first line
-
-    Serial1.write("                "); // clear display
-    Serial1.write("                ");
+    clearDisplay();
 
     Serial1.write(254); // move cursor to beginning of first line
     Serial1.write(128); // move cursor to beginning of first line
-    
     
     String tempStr = t + "  " + p;
     
@@ -85,7 +74,7 @@ void loop() {
     
     Serial1.write("                "); // clear second line of display
     
-    Serial1.write(254); // move cursor to beginning of second line
+    Serial1.write(254); // move cursor to beginning of second line 
     Serial1.write(192); // move cursor to beginning of second line
     
     char summArr[16];
@@ -96,11 +85,7 @@ void loop() {
         delay(1000*80); // pause if data is retrieved
     }
     
-    Serial1.write(254); // move cursor to beginning of first line
-    Serial1.write(128); // move cursor to beginning of first line
-
-    Serial1.write("                "); // clear display
-    Serial1.write("                ");
+   clearDisplay();
     
     // nextTime = millis() + 10000;
 }
@@ -127,4 +112,11 @@ String getSummary() {
     request.port = 80;
     http.get(request, response, headers);
     return response.body;
+}
+
+void clearDisplay() {
+    Serial1.write(254); // move cursor to beginning of first line
+    Serial1.write(128); // move cursor to beginning of first line
+    Serial1.write("                "); // clear display
+    Serial1.write("                ");
 }
